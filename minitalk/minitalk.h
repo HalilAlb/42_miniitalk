@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 17:03:34 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/04 21:47:38 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/05 01:58:46 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,5 @@
 # include "libft/ft_printf/ft_printf.h"
 # include <signal.h>
 # include <unistd.h>
-# include <stdlib.h>
-# include <string.h>
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:01:31 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/04 21:33:17 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/05 01:58:20 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk_bonus.h"
+#include "minitalk.h"
 
 void	ft_handler(int sig, siginfo_t *info, void *context)
 {
