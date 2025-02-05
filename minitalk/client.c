@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:03:25 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/05 02:07:04 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/05 03:27:20 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ int	main(int ac, char **av)
 	}
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = ft_receipt;
+	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1
 		|| sigaction(SIGUSR2, &sa, NULL) == -1)
-		ft_printf("SIGACTION");
+		ft_printf("SIGACTION ERROR!");
 	ft_send_str (ft_atoi(av[1]), av[2]);
 	while (1)
 		pause();

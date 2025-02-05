@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:02:21 by malbayra          #+#    #+#             */
-/*   Updated: 2025/01/30 06:25:38 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/05 09:15:51 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_handler(int sig, siginfo_t *info, void *context)
 			kill(info->si_pid, SIGUSR2);
 		else
 		{
-			ft_printf("%s", &c);
+			ft_printf("%c", &c);
 			kill(info->si_pid, SIGUSR1);
 		}
 		c = 0;

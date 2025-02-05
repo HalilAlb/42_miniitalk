@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:01:31 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/05 01:58:20 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/05 09:17:36 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,11 @@ int	main(void)
 
 	sa.sa_sigaction = ft_handler;
 	sa.sa_flags = SA_SIGINFO;
+	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1
 		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 		ft_printf("Signal Error\n");
-	ft_printf("PID: %d\n", getpid());
+	ft_printf("SERVER PID: %d\n", getpid());
 	while (1)
 		pause();
 	return (0);

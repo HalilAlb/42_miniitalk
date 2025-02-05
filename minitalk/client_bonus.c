@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:02:40 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/04 22:15:41 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/05 09:15:07 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static void	send_bit(int pid, int bit)
 	if (bit == 1)
 	{
 		if (kill(pid, SIGUSR2) == -1)
-			printf("Hata: kill(SIGUSR2)\n");
+			ft_printf("Hata: kill(SIGUSR2)\n");
 	}
 	else
 	{
 		if (kill(pid, SIGUSR1) == -1)
-			printf("Hata: kill(SIGUSR1)\n");
+			ft_printf("Hata: kill(SIGUSR1)\n");
 	}
 }
 
@@ -73,7 +73,7 @@ void	ft_receipt(int sig, siginfo_t *info, void *context)
 		ft_send_str(pid, NULL);
 	else if (sig == SIGUSR2)
 	{
-		printf("Mesaj sunucu tarafından başarıyla alındı.\n");
+		ft_printf("Mesaj sunucu tarafından başarıyla alındı.\n");
 		exit(0);
 	}
 }
@@ -86,10 +86,10 @@ int	main(int ac, char **av)
 	if (ac != 3)
 	{
 		if (ac < 3)
-			printf("HATA: yetersiz argüman\n");
+			ft_printf("HATA: yetersiz argüman\n");
 		else
-			printf("HATA: fazla argüman\n");
-		printf("KULLANIM: ./client <sunucu_pid> <string>\n");
+			ft_printf("HATA: fazla argüman\n");
+		ft_printf("KULLANIM: ./client <sunucu_pid> <string>\n");
 		return (1);
 	}
 	sa.sa_flags = SA_SIGINFO;
@@ -98,10 +98,10 @@ int	main(int ac, char **av)
 	if (sigaction(SIGUSR1, &sa, NULL) == -1
 		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 	{
-		printf("HATA: sigaction\n");
+		ft_printf("HATA: sigaction\n");
 		return (1);
 	}
-	server_pid = atoi(av[1]);
+	server_pid = ft_atoi(av[1]);
 	ft_send_str(server_pid, av[2]);
 	while (1)
 		pause();
