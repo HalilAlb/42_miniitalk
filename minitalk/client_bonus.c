@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:02:40 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/05 14:07:16 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/05 15:04:17 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ static void	send_bit(int pid, int bit)
 	if (bit == 1)
 	{
 		if (kill(pid, SIGUSR2) == -1)
-			ft_printf("Hata: kill(SIGUSR2)\n");
+			ft_printf("Error: kill(SIGUSR2)\n");
 	}
 	else
 	{
 		if (kill(pid, SIGUSR1) == -1)
-			ft_printf("Hata: kill(SIGUSR1)\n");
+			ft_printf("Error: kill(SIGUSR1)\n");
 	}
 }
 
@@ -73,7 +73,7 @@ void	ft_receipt(int sig, siginfo_t *info, void *context)
 		ft_send_str(pid, NULL);
 	else if (sig == SIGUSR2)
 	{
-		ft_printf("Mesaj sunucu tarafından başarıyla alındı.\n");
+		ft_printf("\033[32;1mMessage received successfully\033[0m.\n");
 		exit(0);
 	}
 }
@@ -86,19 +86,19 @@ int	main(int ac, char **av)
 	if (ac != 3 || ft_strlen(av[1]) > 8
 		|| ft_strncmp(av[1], "0123456789", 10) == 0)
 	{
-		ft_printf("ERROR: Invalid Argument Or PID\n");
-		ft_printf("USED: ./client <server_pid> <string>\n");
+		ft_printf("\033[0;31mError: Invalid Argument Or PID\033[0m\n");
+		ft_printf("\033[0;31mUSED: ./client <server_pid> <string>\033[0m\n");
 		return (1);
 	}
 	server_pid = ft_atoi(av[1]);
 	if (server_pid <= 0 || server_pid >= 4194304)
-		return (ft_printf("HATA: Geçersiz PID\n"), 1);
+		return (ft_printf("Eror: Invalid PID\n"), 1);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = ft_receipt;
 	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1
 		|| sigaction(SIGUSR2, &sa, NULL) == -1)
-		return (ft_printf("HATA: sigaction\n"), 1);
+		return (ft_printf("Error: sigaction\n"), 1);
 	ft_send_str(server_pid, av[2]);
 	while (1)
 		pause();

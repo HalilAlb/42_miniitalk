@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/05 17:01:31 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/05 11:29:12 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:49:46 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	main(void)
 	if (sigaction(SIGUSR1, &sa, NULL) == -1
 		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 		ft_printf("Signal Error\n");
-	ft_printf("SERVER PID: %d\n", getpid());
+	ft_printf("Server PID: %d\n", getpid());
 	while (1)
 		pause();
 	return (0);

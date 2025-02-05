@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:03:25 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/05 13:57:32 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:49:11 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ int	main(int ac, char **av)
 	}
 	server_pid = ft_atoi(av[1]);
 	if (server_pid <= 0 || server_pid >= 4194304)
-		return (ft_printf("HATA: Geçersiz PID\n"), 1);
+		return (ft_printf("Error: Invalid PID\n"), 1);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = ft_receipt;
 	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1
 		|| sigaction(SIGUSR2, &sa, NULL) == -1)
-		return (ft_printf("HATA: sigaction\n"), 1);
+		return (ft_printf("Error: sigaction\n"), 1);
 	ft_send_str(server_pid, av[2]);
 	while (1)
 		pause();
