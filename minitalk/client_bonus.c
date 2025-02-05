@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:02:40 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/05 09:15:07 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/05 14:07:16 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,22 @@ int	main(int ac, char **av)
 	struct sigaction	sa;
 	int					server_pid;
 
-	if (ac != 3)
+	if (ac != 3 || ft_strlen(av[1]) > 8
+		|| ft_strncmp(av[1], "0123456789", 10) == 0)
 	{
-		if (ac < 3)
-			ft_printf("HATA: yetersiz argüman\n");
-		else
-			ft_printf("HATA: fazla argüman\n");
-		ft_printf("KULLANIM: ./client <sunucu_pid> <string>\n");
-		return (1);
-	}
-	sa.sa_flags = SA_SIGINFO;
-	sa.sa_sigaction = &ft_receipt;
-	sigemptyset(&sa.sa_mask);
-	if (sigaction(SIGUSR1, &sa, NULL) == -1
-		|| sigaction(SIGUSR2, &sa, NULL) == -1)
-	{
-		ft_printf("HATA: sigaction\n");
+		ft_printf("ERROR: Invalid Argument Or PID\n");
+		ft_printf("USED: ./client <server_pid> <string>\n");
 		return (1);
 	}
 	server_pid = ft_atoi(av[1]);
+	if (server_pid <= 0 || server_pid >= 4194304)
+		return (ft_printf("HATA: Geçersiz PID\n"), 1);
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = ft_receipt;
+	sigemptyset(&sa.sa_mask);
+	if (sigaction(SIGUSR1, &sa, NULL) == -1
+		|| sigaction(SIGUSR2, &sa, NULL) == -1)
+		return (ft_printf("HATA: sigaction\n"), 1);
 	ft_send_str(server_pid, av[2]);
 	while (1)
 		pause();
