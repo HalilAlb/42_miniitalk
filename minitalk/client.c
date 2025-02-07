@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:03:25 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/05 14:49:11 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/07 15:56:35 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,10 @@ int	main(int ac, char **av)
 	struct sigaction	sa;
 	int					server_pid;
 
-	if (ac != 3 || ft_strlen(av[1]) > 8
-		|| ft_strncmp(av[1], "0123456789", 10) == 0)
+	if (ac != 3 || ft_strlen(av[1]) > 8)
 	{
-		ft_printf("ERROR: Invalid Argument Or PID\n");
-		ft_printf("USED: ./client <server_pid> <string>\n");
+		ft_printf("\033[0;31mError: Invalid Argument Or PID\033[0m\n");
+		ft_printf("\033[0;31mUSED: ./client <server_pid> <string>\033[0m\n");
 		return (1);
 	}
 	server_pid = ft_atoi(av[1]);

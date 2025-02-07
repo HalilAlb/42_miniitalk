@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:02:40 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/05 15:04:17 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/07 11:04:20 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,18 @@ static void	send_bit(int pid, int bit)
 	if (bit == 1)
 	{
 		if (kill(pid, SIGUSR2) == -1)
+		{
 			ft_printf("Error: kill(SIGUSR2)\n");
+			exit(1);
+		}
 	}
 	else
 	{
 		if (kill(pid, SIGUSR1) == -1)
+		{
 			ft_printf("Error: kill(SIGUSR1)\n");
+			exit(1);
+		}
 	}
 }
 
@@ -83,16 +89,16 @@ int	main(int ac, char **av)
 	struct sigaction	sa;
 	int					server_pid;
 
-	if (ac != 3 || ft_strlen(av[1]) > 8
-		|| ft_strncmp(av[1], "0123456789", 10) == 0)
+	if (ac != 3 || ft_strlen(av[1]) > 8)
 	{
 		ft_printf("\033[0;31mError: Invalid Argument Or PID\033[0m\n");
 		ft_printf("\033[0;31mUSED: ./client <server_pid> <string>\033[0m\n");
+		ft_printf("k");
 		return (1);
 	}
 	server_pid = ft_atoi(av[1]);
 	if (server_pid <= 0 || server_pid >= 4194304)
-		return (ft_printf("Eror: Invalid PID\n"), 1);
+		return (ft_printf("Error: Invalid PID\n"), 1);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = ft_receipt;
 	sigemptyset(&sa.sa_mask);
