@@ -6,7 +6,7 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 13:02:40 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/07 11:04:20 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:10:47 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	main(int ac, char **av)
 	{
 		ft_printf("\033[0;31mError: Invalid Argument Or PID\033[0m\n");
 		ft_printf("\033[0;31mUSED: ./client <server_pid> <string>\033[0m\n");
-		ft_printf("k");
 		return (1);
 	}
 	server_pid = ft_atoi(av[1]);
