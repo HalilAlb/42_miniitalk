@@ -6,38 +6,66 @@
 /*   By: malbayra <malbayra@student.42istanbul.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/27 14:03:25 by malbayra          #+#    #+#             */
-/*   Updated: 2025/02/07 15:56:35 by malbayra         ###   ########.fr       */
+/*   Updated: 2025/02/07 16:34:39 by malbayra         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	ft_send_str(int pid, char *str)
+static void	send_bit(int pid, int bit)
 {
-	static int	bit_index = 0;
-	static char	*message = 0;
-	char		current_char;
-	int			current_bit;
+	if (bit == 1)
+	{
+		if (kill(pid, SIGUSR2) == -1)
+		{
+			ft_printf("Error:enter correct pid \n");
+			exit(1);
+		}
+	}
+	else
+	{
+		if (kill(pid, SIGUSR1) == -1)
+		{
+			ft_printf("Error: kenter correct pid\n");
+			exit(1);
+		}
+	}
+}
+
+static void	send_null_terminator(int pid, int *sent)
+{
+	if (*sent < 8)
+	{
+		send_bit(pid, 0);
+		(*sent)++;
+	}
+	else
+		exit(0);
+}
+
+static void	ft_send_str(int pid, const char *str)
+{
+	static const char	*message = NULL;
+	static int			bit_index = 0;
+	static int			null_bits_sent = 0;
+	char				current_char;
+	int					current_bit;
 
 	if (str)
+	{
 		message = str;
+		bit_index = 0;
+		null_bits_sent = 0;
+	}
 	if (message && message[bit_index / 8])
 	{
 		current_char = message[bit_index / 8];
 		current_bit = (current_char >> (bit_index % 8)) & 1;
-		if (current_bit == 1 && kill(pid, SIGUSR2) == -1)
-			ft_printf("%s", "Error KILL\n");
-		else if (current_bit == 0 && kill(pid, SIGUSR1) == -1)
-			ft_printf("%s", "Error KILL\n");
+		send_bit(pid, current_bit);
 		bit_index++;
 	}
 	else if (message)
-	{
-		while (bit_index++ < 8)
-			if (kill(pid, SIGUSR1) == -1)
-				ft_printf("%s", "Error KILL\n");
-		exit(0);
-	}
+		send_null_terminator(pid, &null_bits_sent);
 }
 
 void	ft_receipt(int sig, siginfo_t *info, void *context)

@@ -18,7 +18,7 @@ static void	send_bit(int pid, int bit)
 	{
 		if (kill(pid, SIGUSR2) == -1)
 		{
-			ft_printf("Error: kill(SIGUSR2)\n");
+			ft_printf("Error:enter correct pid \n");
 			exit(1);
 		}
 	}
@@ -26,7 +26,7 @@ static void	send_bit(int pid, int bit)
 	{
 		if (kill(pid, SIGUSR1) == -1)
 		{
-			ft_printf("Error: kill(SIGUSR1)\n");
+			ft_printf("Error: kenter correct pid\n");
 			exit(1);
 		}
 	}
@@ -73,7 +73,7 @@ void	ft_receipt(int sig, siginfo_t *info, void *context)
 	static int	pid = 0;
 
 	(void)context;
-	if (info->si_pid != 0)
+	if (info->si_pid)
 		pid = info->si_pid;
 	if (sig == SIGUSR1)
 		ft_send_str(pid, NULL);
@@ -103,7 +103,7 @@ int	main(int ac, char **av)
 	sigemptyset(&sa.sa_mask);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1
 		|| sigaction(SIGUSR2, &sa, NULL) == -1)
-		return (ft_printf("Error: sigaction\n"), 1);
+		return (ft_printf("Error: Sigaction\n"), 1);
 	ft_send_str(server_pid, av[2]);
 	while (1)
 		pause();
