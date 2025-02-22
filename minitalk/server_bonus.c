@@ -17,8 +17,9 @@ void	ft_handler(int sig, siginfo_t *info, void *context)
 	static unsigned char	c = 0;
 	static int				bit = 0;
 
-	(void)context;
-	c |= (sig == SIGUSR2) << bit++;
+	if (sig == SIGUSR2)
+		c |= (1 << bit);
+	bit++;
 	if (bit == 8)
 	{
 		if (c == '\0')
