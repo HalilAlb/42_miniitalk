@@ -18,7 +18,7 @@ static void	send_bit(int pid, int bit)
 	{
 		if (kill(pid, SIGUSR2) == -1)
 		{
-			ft_printf("Error:enter correct pid \n");
+			ft_printf("Error: enter correct pid \n");
 			exit(1);
 		}
 	}
