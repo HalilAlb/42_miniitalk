@@ -26,7 +26,7 @@ static void	send_bit(int pid, int bit)
 	{
 		if (kill(pid, SIGUSR1) == -1)
 		{
-			ft_printf("Error: kenter correct pid\n");
+			ft_printf("Error: enter correct pid\n");
 			exit(1);
 		}
 	}
